@@ -1,0 +1,45 @@
+# Description of Program: This program prompts the user to enter integers 
+# until the user enters -9999. The program then prints the number of integers 
+# entered, the maximum integer, and the minimum integer. If the user enters -9999 as 
+# the first number, the program prints a message indicating that no numbers were 
+# entered.
+
+def main():
+    # Prompt the user for the first integer
+    num = int(input("\nEnter an integer or -9999 to end: "))
+
+    # Handle the case where the user enters -9999 as the first integer
+    if num == -9999:
+        print("\nYou didn't enter any numbers.\n")
+        return
+
+    # Initialize variables to store the count, min, and max values
+    count = 1
+    min_num = max_num = num
+
+    # Loop to prompt the user for integers until -9999 is entered
+    while True:
+        num = int(input("Enter an integer or -9999 to end: "))
+
+        # Break the loop if the user enters -9999
+        if num == -9999:
+            break
+
+        # Update count, min, and max
+        count += 1
+        if num < min_num:
+            min_num = num
+        if num > max_num:
+            max_num = num
+
+    # Print results
+    if count == 1:
+        print("\nYou entered", count, "number.")
+    else:
+        print("\nYou entered", count, "numbers.")
+    print("The maximum is", max_num)
+    print("The minimum is", min_num)
+    print()
+
+if __name__ == "__main__":
+    main()
