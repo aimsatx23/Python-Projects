@@ -1,0 +1,58 @@
+# Description of Program: Program that calculates the day of the week for a given date using Zeller's Congruence.
+
+def main():
+    # Ask for the date
+    year = int(input("\nEnter year (e.g., 2008): "))
+
+    # Check if the year is valid
+    if year <= 1752:
+        print("Year must be > 1752. Illegal year entered:", year)
+        print()
+        return
+    
+    month = int(input("Enter month (1-12): "))
+    # Check if the month is valid
+    if month < 1 or month > 12:
+        print("Month must be in [1..12]. Illegal month entered:", month)
+        print()
+        return
+    
+    day = int(input("Enter day of the month (1-31): "))
+    # Check if the day is valid
+    if day < 1 or day > 31:
+        print("Day must be in [1..31]. Illegal day entered:", day)
+        print()
+        return
+    
+    # Check if the month is January or February
+    if month == 1 or month == 2:
+        month += 12
+        year -= 1
+
+    # Calculate the day of the week using Zeller's Congruence
+    k = year % 100
+    j = year // 100
+    h = (day + (13 * (month + 1)) // 5 + k + (k // 4) + (j // 4) + (5 * j)) % 7
+
+    # Assign h to the day of the week
+    if h == 0:
+        day_of_week = "Saturday"
+    elif h == 1:
+        day_of_week = "Sunday"
+    elif h == 2:
+        day_of_week = "Monday"
+    elif h == 3:
+        day_of_week = "Tuesday"
+    elif h == 4:
+        day_of_week = "Wednesday"
+    elif h == 5:
+        day_of_week = "Thursday"
+    else:
+        day_of_week = "Friday"
+
+    # Print the day of the week
+    print("Day of the week is", day_of_week)
+    print()
+
+if __name__ == "__main__":
+    main()

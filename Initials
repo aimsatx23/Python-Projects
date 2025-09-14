@@ -1,0 +1,18 @@
+# Description of Program: This program prints my initials (A.I.M.) in large letters of character width 12 (with exception to the I).
+
+def main():
+    print()
+    print("      AA          IIIIII       MM      MM       ")
+    print("     AAAA         IIIIII      MMMM    MMMM      ")
+    print("    AA  AA          II        MM MM  MM MM      ")
+    print("   AA    AA         II        MM  MMMM  MM      ")
+    print("  AA      AA        II        MM   MM   MM      ")
+    print("  AAAAAAAAAA        II        MM        MM      ")
+    print("  AAAAAAAAAA        II        MM        MM      ")
+    print("  AA      AA        II        MM        MM      ")
+    print("  AA      AA  ..  IIIIII  ..  MM        MM  ..  ")
+    print("  AA      AA  ..  IIIIII  ..  MM        MM  ..  ")
+    print()
+
+if __name__ == "__main__":
+    main()

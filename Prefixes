@@ -1,0 +1,48 @@
+# Description of Program: Calculating the percent difference between binary and decimal prefixes using format and print commands.
+
+def main():
+    # Define decimal and binary prefix values
+    decimalKilo = 10**3
+    decimalMega = 10**6
+    decimalGiga = 10**9
+    decimalTera = 10**12
+    decimalPeta = 10**15
+    decimalExa = 10**18
+    decimalZetta = 10**21
+    decimalYotta = 10**24
+
+    binaryKibi = 2**10
+    binaryMebi = 2**20
+    binaryGibi = 2**30
+    binaryTebi = 2**40
+    binaryPebi = 2**50
+    binaryExbi = 2**60
+    binaryZebi = 2**70
+    binaryYobi = 2**80
+
+    # Calculate the percent difference between binary and decimal prefixes
+    diffK = ((binaryKibi - decimalKilo) / decimalKilo) * 100
+    diffM = ((binaryMebi - decimalMega) / decimalMega) * 100
+    diffG = ((binaryGibi - decimalGiga) / decimalGiga) * 100
+    diffT = ((binaryTebi - decimalTera) / decimalTera) * 100
+    diffP = ((binaryPebi - decimalPeta) / decimalPeta) * 100
+    diffE = ((binaryExbi - decimalExa) / decimalExa) * 100
+    diffZ = ((binaryZebi - decimalZetta) / decimalZetta) * 100
+    diffY = ((binaryYobi - decimalYotta) / decimalYotta) * 100
+
+    # Print results as a table
+    print()
+    print("Dec/Bin              diff%")
+    print("-" * 26)
+    print(format("kilo/kibi", "20s") + format(diffK, "5.2f") + "%")
+    print(format("mega/mebi", "20s") + format(diffM, "5.2f") + "%")
+    print(format("giga/gibi", "20s") + format(diffG, "5.2f") + "%")
+    print(format("tera/tebi", "20s") + format(diffT, "5.2f") + "%")
+    print(format("peta/pebi", "20s") + format(diffP, "5.2f") + "%")
+    print(format("exa/exbi", "20s") + format(diffE, "5.2f") + "%")
+    print(format("zetta/zebi", "20s") + format(diffZ, "5.2f") + "%")
+    print(format("yotta/yobi", "20s") + format(diffY, "5.2f") + "%")
+    print()
+    
+if __name__ == "__main__":
+    main()

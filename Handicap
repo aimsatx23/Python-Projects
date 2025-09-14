@@ -1,0 +1,23 @@
+# Description of Program: Program that calculates a bowler's average and handicap after three games using input statements.
+
+def main():
+    print()
+    name = input("Enter bowler's name: ")
+    game1 = int(input("Enter Game 1: "))
+    game2 = int(input("Enter Game 2: "))
+    game3 = int(input("Enter Game 3: "))
+
+    # Calculate the average score and handicap
+    average = int((game1 + game2 + game3) / 3)
+    handicap = int((200 - average) * 0.8)
+    handicap = max(0, handicap)  # Handicap cannot be negative
+
+    # Output results
+    print("\nHandicap report for", name + ":")
+    print("  " + name + "'s average is:", average)
+    print("  " + name + "'s handicap is:", handicap)
+    print("\nIt's time to Bowl!")
+    print()
+
+if __name__ == "__main__":
+    main()
