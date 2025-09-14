@@ -1,0 +1,122 @@
+# Description of Program: This program solves jumbles by using a dictionary of 
+# words. It takes a scrambled word as input and checks if it can find a matching word 
+# in the dictionary. If found, it prints the word; otherwise, it informs the user 
+# that it cannot solve the jumble. It also provides statistics on the number of 
+# comparisons made and the time taken to solve the jumble.
+
+import os
+import time
+
+# List of prime numbers for hashing
+PRIMES = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29,
+          31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
+          73, 79, 83, 89, 97, 101, 103, 107, 109, 113]
+
+# Function to hash a word using prime numbers
+def hashWord(s, modulus):
+    s = s.lower()
+    product = 1
+    for ch in s:
+        index = ord(ch) - ord('a')
+        product = (product * PRIMES[index]) % modulus
+    return product
+
+# Function to create dictionaries from a file
+def createDicts(filename):
+    dict5 = {}
+    dict6 = {}
+    totalWords = 0
+    words5 = 0
+    words6 = 0
+
+    file = open(filename, "r")
+    for line in file:
+        word = line.strip()
+        totalWords += 1
+        if len(word) == 5:
+            words5 += 1
+            h = hashWord(word, 10007)
+            if h in dict5:
+                dict5[h].append(word)
+                dict5[h].sort()
+            else:
+                dict5[h] = [word]
+        elif len(word) == 6:
+            words6 += 1
+            h = hashWord(word, 10007)
+            if h in dict6:
+                dict6[h].append(word)
+                dict6[h].sort()
+            else:
+                dict6[h] = [word]
+    file.close()
+
+    print()
+    print("Total words found:          ", totalWords)
+    print("  Words of length 5:         ", words5)
+    print("  Dictionary(5) buckets:     ", len(dict5))
+    print("  Words of length 6:         ", words6)
+    print("  Dictionary(6) buckets:     ", len(dict6))
+    print()
+
+    return dict5, dict6
+
+# Function to solve jumbles
+def solveJumbles():
+    print("\nCreating dictionaries from file:", end=" ")
+    filename = input()
+
+    if not os.path.exists(filename):
+        print("File does not exist")
+        return
+
+    dict5, dict6 = createDicts(filename)
+
+    while True:
+        jumble = input("Enter a scrambled word (or EXIT): ").strip()
+
+        if jumble.lower() in ["exit", "halt", "quit"]:
+            print("Thanks for playing! Goodbye.")
+            break
+
+        if not jumble.isalpha():
+            print("Word contains illegal characters. Try again")
+            print()
+            continue
+
+        if len(jumble) not in [5, 6]:
+            print("Word must be 5 or 6 characters long. Try again")
+            print()
+            continue
+
+        start = time.time()
+
+        if len(jumble) == 5:
+            h = hashWord(jumble, 10007)
+            bucket = dict5.get(h, [])
+        else:
+            h = hashWord(jumble, 10007)
+            bucket = dict6.get(h, [])
+
+        comparisons = 0
+        found = False
+
+        for word in bucket:
+            comparisons += 1
+            if sorted(jumble.lower()) == sorted(word.lower()):
+                print("Found word: " + word)
+                found = True
+                break
+
+        if not found:
+            print("Sorry. I can't solve this jumble!  Try again.")
+
+        end = time.time()
+
+        print("Solving this jumble took %.5f seconds" % (end - start))
+        print("Made", comparisons, "comparisons.")
+        print()
+
+# Run the program
+if __name__ == "__main__":
+    solveJumbles()
