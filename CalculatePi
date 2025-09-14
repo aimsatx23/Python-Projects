@@ -1,0 +1,102 @@
+# Description of Program: Implementation of classes Circle and Square, and estimation of Pi using random points in the square.
+
+import math
+import random
+
+def distance(x1, y1, x2, y2):
+    """Return the distance between two points (x1, y1) and (x2, y2)."""
+    return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
+
+class Circle:
+    """Defines a circle object. It's centered at (x, y) and has radius rad."""
+    
+    def __init__(self, rad, x, y):
+        """Define the Circle object."""
+        self.radius = rad
+        self.x = x
+        self.y = y
+    
+    def __str__(self):
+        """Return a string describing the object."""
+        return "Circle of radius " + str(self.radius) + " centered at point (" + str(self.x) + ", " + str(self.y) + ")"
+    
+    def getRadius(self):
+        """Return the radius."""
+        return self.radius
+    
+    def getCenterX(self):
+        """Return the x component of the center point."""
+        return self.x
+    
+    def getCenterY(self):
+        """Return the y component of the center point."""
+        return self.y
+    
+    def getArea(self):
+        """Return the area of the circle."""
+        return math.pi * self.radius ** 2
+    
+    def pointInCircle(self, a, b):
+        """Return a boolean indicating whether point (a, b) is inside the circle."""
+        return distance(a, b, self.x, self.y) < self.radius
+
+class Square:
+    """Construct a square with given side length, aligned with the axes
+    and top left corner at point (x, y)."""
+    
+    def __init__(self, side, x, y):
+        """Define the Square object."""
+        self.side = side
+        self.x = x
+        self.y = y
+    
+    def __str__(self):
+        """Return a string describing the object."""
+        return "Square of side " + str(self.side) + " with upper left point at (" + str(self.x) + ", " + str(self.y) + ")"
+    
+    def getSide(self):
+        """Return the side length of the Square."""
+        return self.side
+    
+    def getULX(self):
+        """Return the x component of the upper left corner."""
+        return self.x
+    
+    def getULY(self):
+        """Return the y component of the upper left corner."""
+        return self.y
+    
+    def getArea(self):
+        """Return the area of the square."""
+        return self.side ** 2
+    
+    def pointInSquare(self, a, b):
+        """Return a boolean indicating whether point (a, b) is inside the square."""
+        return (self.x <= a < self.x + self.side and self.y >= b > self.y - self.side)
+
+def estimatePi(c, n):
+    """Estimate the value of pi using random points in the square."""
+    hits = 0
+    for i in range(n):
+        x = (random.random() * 2) - 1
+        y = (random.random() * 2) - 1
+        if c.pointInCircle(x, y):
+            hits += 1
+    return (hits / n) * 4
+
+def main():
+    """Run the simulation for estimating pi and print results in a formatted table."""
+    c = Circle(1, 0, 0)
+    s = Square(2, -1, 1)
+    print()
+    n = 100
+    while n <= 10000000:
+        calculated_pi = estimatePi(c, n)
+        difference = calculated_pi - math.pi
+        print("n =", format(n, "<9"), " Calculated PI =", format(calculated_pi, ".6f"),
+              "  Difference =", format(difference, "+.6f"))
+        n *= 10
+    print()
+
+if __name__ == "__main__":
+    main()
