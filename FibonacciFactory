@@ -1,0 +1,113 @@
+# Description of Program: A Fibonacci number library that allows users to generate 
+# or query the Fibonacci sequence through a command-based interface. The program 
+# includes functions to generate the first N Fibonacci numbers, find the nth 
+# Fibonacci number, list Fibonacci numbers less than or equal to a given number, 
+# and count how many Fibonacci numbers are less than or equal to a given number. 
+# The program also provides a help message for user guidance.
+
+def firstNFibNumbers(n):
+    """Return a list of the first n Fibonacci numbers. If n <= 0, return the empty list."""
+    if n <= 0:
+        return []
+    elif n == 1:
+        return [0]
+    elif n == 2:
+        return [0, 1]
+    else:
+        fib1, fib2 = 0, 1
+        fibs = [0, 1]
+        for counter in range(2, n):
+            fib1, fib2 = fib2, fib1 + fib2
+            fibs.append(fib2)
+        return fibs
+
+def nthFibonacci(n):
+    """Return the nth Fibonacci number (0-based)."""
+    return firstNFibNumbers(n + 1)[-1]
+
+def fibNumbersLessOrEqualTo(N):
+    """Return a list of Fibonacci numbers <= N."""
+    if N < 0:
+        return []
+    fibs = [0, 1]
+    while True:
+        next_fib = fibs[-1] + fibs[-2]
+        if next_fib > N:
+            break
+        fibs.append(next_fib)
+    return [f for f in fibs if f <= N]
+
+def printHelpMessage():
+    """Print the help message."""
+    print("""The following commands are available:
+  0: Exit.
+  1: List the first N Fibonacci numbers.
+  2: Display the nth Fibonacci number (0-based).
+  3: List the Fibonacci numbers less or equal to N.
+  4: How many Fibonacci numbers are less or equal to N?
+  5: Display this help message.""")
+
+def main():
+    """Main function to run the Fibonacci number laboratory."""
+    print("\nWelcome to the Fibonacci Number laboratory!\n")
+    printHelpMessage()
+
+    while True:
+        command = input("\nPlease enter a command (0, 1, 2, 3, 4, or 5): ").strip().lower()
+        
+        if command in ["0", "exit", "quit"]:
+            print("\nThanks for using the Fibonacci Laboratory!  Goodbye.\n")
+            break
+        elif command in ["5", "help", "?"]:
+            printHelpMessage()
+
+        elif command == "1":
+            nString = input("You've asked for the first N Fibonacci numbers. What is N? ")
+            if nString.isdigit():
+                n = int(nString)
+                if n < 0:
+                    print("ERROR: Illegal value entered.")
+                    continue
+                print(firstNFibNumbers(n))
+            else:
+                print("ERROR: Illegal value entered.")
+
+        elif command == "2":
+            nString = input("You've asked for the nth Fibonacci number. What is n? ")
+            if nString.isdigit():
+                n = int(nString)
+                if n < 0:
+                    print("ERROR: Illegal value entered.")
+                    continue
+                print(nthFibonacci(n))
+            else:
+                print("ERROR: Illegal value entered.")
+
+        elif command == "3":
+            nString = input("You've asked for the Fibonacci numbers less than or equal to N. What is N? ")
+            if nString.isdigit():
+                N = int(nString)
+                if N < 0:
+                    print("ERROR: Illegal value entered.")
+                    continue
+                print(fibNumbersLessOrEqualTo(N))
+            else:
+                print("ERROR: Illegal value entered.")
+
+        elif command == "4":
+            nString = input("You've asked how many Fibonacci numbers are less than or equal to N. What is N? ")
+            if nString.isdigit():
+                N = int(nString)
+                if N < 0:
+                    print("ERROR: Illegal value entered.")
+                    continue
+                print(len(fibNumbersLessOrEqualTo(N)))
+            else:
+                print("ERROR: Illegal value entered.")
+
+        else:
+            print("ERROR: Illegal command. Try again.\n")
+            printHelpMessage()
+
+if __name__ == "__main__":
+    main()
