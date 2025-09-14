@@ -1,0 +1,131 @@
+# Description of Program: This program contains code that defines multiple 
+# functions that manipulate strings in various ways, such as but not limited to: 
+# appending a character to a string, counting the number of times a character appears
+# in a string, extending one string with another, removing a character at a specific 
+# index in a string, removing the first occurrence of a character in a string, 
+# removing all occurrences of a character in a string, checking if two strings are 
+# equal, checking if a string is a digit, and checking if a string is a palindrome.
+
+def myAppend(s, ch):
+    """Return a new string that is like s but with character ch added at the end."""
+    return s + ch
+
+def myCount(s, ch):
+    """Return the number of times character ch appears in s."""
+    count = 0
+    for char in s:
+        if char == ch:
+            count += 1
+    return count
+
+def myExtend(s1, s2):
+    """Return a new string that contains the elements of s1 followed by s2."""
+    result = s1
+    for char in s2:
+        result += char
+    return result
+
+def myMin(s):
+    """
+    Return the character in s with the lowest ASCII code.
+    If s is empty, print "Empty string: no min value" and return None.
+    """
+    if s == "":
+        print("Empty string: no min value")
+        return None
+    min_char = s[0]
+    for char in s:
+        if char < min_char:
+            min_char = char
+    return min_char
+
+def myInsert(s, i, ch):
+    """
+    Return a new string like s except that ch has been inserted at the ith position.
+    Print "Invalid index" if i is greater than the length of s and return None.
+    """
+    if i > len(s):
+        print("Invalid index")
+        return None
+    return s[:i] + ch + s[i:]
+
+def myPop(s, i):
+    """
+    Return two results:
+    1. a new string that is like s but with the ith element removed;
+    2. the value that was removed.
+    Print "Invalid index" if i is greater than or equal to len(s), 
+    and return s unchanged and None.
+    """
+    if i >= len(s):
+        print("Invalid index")
+        return s, None
+    return s[:i] + s[i+1:], s[i]
+
+def myFind(s, ch):
+    """Return the index of the first (leftmost) occurrence of ch in s, or -1 if not found."""
+    for index in range(len(s)):
+        if s[index] == ch:
+            return index
+    return -1
+
+def myRFind(s, ch):
+    """Return the index of the last (rightmost) occurrence of ch in s, or -1 if not found."""
+    index = -1
+    for i in range(len(s)):
+        if s[i] == ch:
+            index = i
+    return index
+
+def myRemove(s, ch):
+    """Return a new string with the first occurrence of ch removed. If none, return s."""
+    index = myFind(s, ch)
+    if index == -1:
+        return s
+    return s[:index] + s[index+1:]
+
+def myRemoveAll(s, ch):
+    """Return a new string with all occurrences of ch removed. If none, return s."""
+    result = ""
+    for char in s:
+        if char != ch:
+            result += char
+    return result
+
+def myEqual(s1, s2):
+    """
+    Return a Boolean indicating whether the input strings s1 and s2 are equal.
+    Don't use == or is on the strings; you can use them on individual characters.
+    """
+    if len(s1) != len(s2):
+        return False
+    for index in range(len(s1)):
+        if s1[index] != s2[index]:
+            return False
+    return True
+
+def myIsdigit(s):
+    """
+    Return a Boolean indicating whether the input string s
+    is nonempty and consists only of decimal digits '0'-'9'.
+    """
+    if len(s) == 0:
+        return False
+    for char in s:
+        if char < '0' or char > '9':
+            return False
+    return True
+
+def myReverse(s):
+    """
+    Return a new string like s but with the characters in reverse order.
+    (Do not use slicing like [::-1].)
+    """
+    result = ""
+    for char in s:
+        result = char + result
+    return result
+
+def isPalindrome(s):
+    """Return a Boolean indicating whether the input string s reads the same forward or backward."""
+    return myReverse(s) == s
