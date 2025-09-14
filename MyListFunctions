@@ -1,0 +1,139 @@
+# Description of Program: Code written for a program that contains a series of 
+# functions that manipulate lists. The functions are used to append, extend, find the
+# max value, sum, count, insert, pop, find, rfind, findall, reverse, remove, 
+# removeall, equal, allEqual, and slice lists.
+
+def myAppend(lst, x):
+    """Return a new list that is like lst but with the element x at the right end."""
+    return lst + [x]
+
+def myExtend(lst1, lst2):
+    """Return a new list that contains the elements of lst1 followed by lst2."""
+    result = lst1[:]
+    for elem in lst2:
+        result = result + [elem]
+    return result
+
+def myMax(lst):
+    """Return the element with the highest value, or print an error if the list is empty."""
+    if not lst:
+        print("Empty list: no max value")
+        return None
+    max_val = lst[0]
+    for elem in lst:
+        if elem > max_val:
+            max_val = elem
+    return max_val
+
+def mySum(lst):
+    """Return the sum of the elements in lst."""
+    total = 0
+    for elem in lst:
+        total += elem
+    return total
+
+def myCount(lst, x):
+    """Return the number of times element x appears in lst."""
+    count = 0
+    for elem in lst:
+        if elem == x:
+            count += 1
+    return count
+
+def myInsert(lst, i, x):
+    """
+    Return a new list like lst except that x has been inserted at index i.
+    Print "Invalid index" if i is negative or greater than len(lst), and return None.
+    """
+    if i < 0 or i > len(lst):
+        print("Invalid index")
+        return None
+    return lst[:i] + [x] + lst[i:]
+
+def myPop(lst, i):
+    """
+    Return two results:
+    1. a new list that is like lst but with the ith element removed;
+    2. the value that was removed.
+    Print "Invalid index" if i is negative or is >= len(lst), and return lst unchanged and None.
+    """
+    if i < 0 or i >= len(lst):
+        print("Invalid index")
+        return lst, None
+    return lst[:i] + lst[i+1:], lst[i]
+
+def myFind(lst, x):
+    """Return the index of the first (leftmost) occurrence of x in lst, or -1 if not found."""
+    for i in range(len(lst)):
+        if lst[i] == x:
+            return i
+    return -1
+
+def myRFind(lst, x):
+    """Return the index of the last (rightmost) occurrence of x in lst, or -1 if not found."""
+    for i in range(len(lst) - 1, -1, -1):
+        if lst[i] == x:
+            return i
+    return -1
+
+def myFindAll(lst, x):
+    """Return a list of indices of occurrences of x in lst, or an empty list if none."""
+    indices = []
+    for i in range(len(lst)):
+        if lst[i] == x:
+            indices = indices + [i]
+    return indices
+
+def myReverse(lst):
+    """Return a new list like lst but with the elements in reverse order."""
+    rev_list = []
+    for i in range(len(lst) - 1, -1, -1):
+        rev_list = rev_list + [lst[i]]
+    return rev_list
+
+def myRemove(lst, x):
+    """Return a new list with the first occurrence of x removed. If there is none, return lst."""
+    for i in range(len(lst)):
+        if lst[i] == x:
+            return lst[:i] + lst[i+1:]
+    return lst
+
+def myRemoveAll(lst, x):
+    """Return a new list with all occurrences of x removed. If there are none, return lst."""
+    new_list = []
+    for elem in lst:
+        if elem != x:
+            new_list += [elem]
+    return new_list
+
+def myEqual(lst1, lst2):
+    """
+    Return a Boolean indicating whether the input lists lst1 and lst2 are equal.
+    Don't use == on the lists; you can use it on individual elements.
+    """
+    if len(lst1) != len(lst2):
+        return False
+    for i in range(len(lst1)):
+        if lst1[i] != lst2[i]:
+            return False
+    return True
+
+def allEqual(lst, x):
+    """Return a Boolean indicating whether all elements in lst (if any) are equal to x."""
+    for elem in lst:
+        if elem != x:
+            return False
+    return True
+
+def mySlice(lst, i, j):
+    """
+    Return a list equivalent to lst[i:j].
+    Print "Illegal index value" if i or j are not in [0..len(lst)].
+    """
+    if i < 0 or j < 0 or i > len(lst) or j > len(lst):
+        print("Illegal index value")
+        return []
+    result = []
+    for k in range(i, j):
+        result = result + [lst[k]]
+    return result
