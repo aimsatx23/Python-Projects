@@ -1,0 +1,102 @@
+# Description of Program: A program that implements various functions with function definitions and parameters.
+
+import math
+
+def sum3Numbers(x, y, z):
+    """Return the sum of the three parameters."""
+    return x + y + z
+
+def multiply3Numbers(x, y, z):
+    """Return the product of three numbers."""
+    return x * y * z
+
+def sumUpTo3Numbers(x, y=0, z=0):
+    """Return the sum of up to 3 numbers, defaulting to 0 for missing parameters."""
+    return x + y + z
+
+def multiplyUpTo3Numbers(x, y=1, z=1):
+    """Return the product of up to 3 numbers, defaulting to 1 for missing parameters."""
+    return x * y * z
+
+def printInOrder(x, y):
+    """Print the two numbers in ascending order."""
+    print(min(x, y), max(x, y))
+
+def areaOfSquare(side):
+    """Return the area of a square. Print an error if side is negative."""
+    if side < 0:
+        print("Negative value entered")
+        return
+    return side * side
+
+def perimeterOfSquare(side):
+    """Return the perimeter of a square. Print an error if side is negative."""
+    if side < 0:
+        print("Negative value entered")
+        return
+    return 4 * side
+
+def diagonalOfRectangle(h, w):
+    """Return the diagonal of a rectangle. Print an error if dimensions are negative."""
+    if h < 0 or w < 0:
+        print("Negative value entered")
+        return
+    return math.sqrt(h**2 + w**2)
+
+def areaOfCircle(radius):
+    """Return the area of a circle. Print an error if radius is negative."""
+    if radius < 0:
+        print("Negative value entered")
+        return
+    return math.pi * radius**2
+
+def circumferenceOfCircle(radius):
+    """Return the circumference of a circle. Print an error if radius is negative."""
+    if radius < 0:
+        print("Negative value entered")
+        return
+    return 2 * math.pi * radius
+
+def bothFactors(d1, d2, x):
+    """Return True if both d1 and d2 are factors of x, else False."""
+    return x % d1 == 0 and x % d2 == 0
+
+def squareAndCircle(x):
+    """Print the area and circumference of a circle and the area and perimeter of a square."""
+    print("\nCircle with radius", x, "has:")
+    print("   Area:", areaOfCircle(x))
+    print("   Circumference:", circumferenceOfCircle(x))
+    print("Square with side", x, "has:")
+    print("   Area:", areaOfSquare(x))
+    print("   Perimeter:", perimeterOfSquare(x), "\n")
+
+def factorial(n):
+    """Return the factorial of a positive integer, or print an error if n is not positive."""
+    if n < 0:
+        print("Input must be positive.")
+        return
+    result = 1
+    for i in range(1, n + 1):
+        result *= i
+    return result
+
+def numberLength(n):
+    """Return the number of digits in the decimal representation of a positive integer."""
+    count = 0
+    while n > 0:
+        count += 1
+        n //= 10
+    return count
+
+def sumPositiveNumbers():
+    """Sum positive numbers entered by the user, ignoring negative inputs. Stop at 0."""
+    total = 0
+    while True:
+        num = float(input("Enter a number: "))
+        if num < 0:
+            print("Illegal input.")
+            continue
+        if num == 0:
+            break
+        total += num
+    print(total)
