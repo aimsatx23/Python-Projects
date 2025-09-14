@@ -1,0 +1,85 @@
+# Description of Program: This program reads a file of census data and analyzes the
+# first digit of the number of deaths and death rates. It counts the frequency of 
+# each digit (0-9) and calculates the percentage of each digit's occurrence. The 
+# results are written to a file named "benford.txt".
+
+import os
+
+def main():
+    filename = input("Enter the name of a file of census data: ")
+
+    # Check if the file exists
+    if not os.path.isfile(filename):
+        print("File does not exist")
+        return
+    
+    # Set to store unique values
+    uniqueValues = set()
+
+    # Dictionary to count the frequency of each digit (0-9) as the first digit
+    digitCounts = {str(i): 0 for i in range(10)}
+
+    # Initialize the total number of lines processed
+    totalLines = 0
+
+    # Open the file
+    file = open(filename, "r")
+
+    # Read the file line by line
+    for line in file:
+        if "#" in line:
+            continue
+
+        # Split the line into fields
+        fields = line.split(",")
+
+        # Skip lines that don't have at least 7 fields
+        if len(fields) < 7:
+            continue
+
+        # Extract the relevant fields and remove underscores
+        numDeaths = fields[5].replace("_", "")
+        deathRate = fields[6].replace("_", "")
+
+        # Add the values to the set of unique values
+        uniqueValues.add(numDeaths)
+        uniqueValues.add(deathRate)
+
+        # For each value, find the first digit and update the digitCounts dictionary
+        for val in [numDeaths, deathRate]:
+            for char in val:
+                if char.isdigit():
+                    digitCounts[char[0]] += 1
+                    break
+
+        # Count the total number of lines processed
+        totalLines += 1
+
+    file.close()
+
+    # Write the results to the output file
+    output = open("benford.txt", "w")
+    output.write("Processing file: " + filename + "\n\n")
+    output.write("Total lines processed: " + str(totalLines) + "\n")
+    output.write("Unique numbers found: " + str(len(uniqueValues)) + "\n")
+    output.write("First digit frequency distributions:\n\n")
+
+    # Header row
+    output.write(f"{'Digit':<6}{'Count':>10}{'Percentage':>14}\n")
+
+    # Total number of digits counted
+    totalDigits = sum(digitCounts.values())
+
+    # Write the frequency and percentage of each digit to the output file
+    for digit in sorted(digitCounts.keys()):
+        count = digitCounts[digit]
+        percentage = (count / totalDigits * 100) if totalDigits > 0 else 0
+        output.write(f"{digit:<6}{count:>10}{percentage:>13.1f}%\n")
+
+    output.close()
+
+    # Notify the user that the output has been written to the file
+    print("Output written to benford.txt")
+
+if __name__ == "__main__":
+    main()

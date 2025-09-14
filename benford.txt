@@ -1,0 +1,17 @@
+Processing file: MortalityCharts.csv
+
+Total lines processed: 58905
+Unique numbers found: 48405
+First digit frequency distributions:
+
+Digit      Count    Percentage
+0             81          0.1%
+1          37379         31.7%
+2          19793         16.8%
+3          13936         11.8%
+4          10941          9.3%
+5           9173          7.8%
+6           7914          6.7%
+7           6921          5.9%
+8           6184          5.2%
+9           5488          4.7%
