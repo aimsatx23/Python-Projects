@@ -1,0 +1,84 @@
+# Description of Program: This program uses Turtle Graphics to draw the Colorado 
+# flag with modular functions. This program defines functions to draw rectangles, 
+# triangles, and circles, and then uses these functions to create the flag design. 
+# The flag consists of three horizontal stripes (blue, white, blue) with a red circle 
+# and a white triangle notch on the left side, and a gold inner circle within the red 
+# circle.
+
+import turtle
+
+# Define colors
+myRed = (187, 19, 62)
+myBlue = (0, 40, 104)
+myGold = (255, 215, 0)
+myWhite = (255, 255, 255)
+
+# Define rectangle function
+def drawRectangle(t, x, y, width, height, color):
+    t.color(color)
+    t.penup()
+    t.goto(x, y)
+    t.pendown()
+    t.begin_fill()
+    for i in range(2):
+        t.forward(width)
+        t.right(90)
+        t.forward(height)
+        t.right(90)
+    t.end_fill()
+
+# Define triangle function
+def drawTriangle(t, p1, p2, p3, color):
+    t.color(color)
+    t.penup()
+    t.goto(p1)
+    t.pendown()
+    t.begin_fill()
+    t.goto(p2)
+    t.goto(p3)
+    t.goto(p1)
+    t.end_fill()
+
+# Define circle function
+def drawCircle(t, x, y, radius, color):
+    t.color(color)
+    t.penup()
+    t.goto(x, y - radius)
+    t.pendown()
+    t.begin_fill()
+    t.circle(radius)
+    t.end_fill()
+
+# Define main function to draw the flag
+def drawFlag():
+    turtle.colormode(255)
+    t = turtle.Turtle()
+    t.speed(0)
+    turtle.setup(600, 400)
+    turtle.bgcolor(myWhite)
+
+    # Draw background stripes
+    drawRectangle(t, -300, 200, 600, 133.33, myBlue)
+    drawRectangle(t, -300, 66.67, 600, 133.33, myWhite)
+    drawRectangle(t, -300, -66.67, 600, 133.33, myBlue)
+
+    # Outer Red Circle for C
+    drawCircle(t, -50, 0, 120, myRed)
+
+    # White Triangle Notch
+    p1 = (-50, 0)
+    p2 = (80, 65)
+    p3 = (80, -65)
+    drawTriangle(t, p1, p2, p3, myWhite)
+
+    # Gold Inner Circle
+    drawCircle(t, -50, 0, 65, myGold)
+
+    t.hideturtle()
+    turtle.done()
+
+def main():
+    drawFlag()
+
+if __name__ == "__main__":
+    main()
