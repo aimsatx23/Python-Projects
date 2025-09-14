@@ -1,0 +1,130 @@
+# Description of Program: This program implements a simple Tic-Tac-Toe game where a
+# human player plays against a machine. The machine makes random moves, and the game 
+# continues until there is a win or a tie. The board is displayed after each valid or
+# invalid move, and the game announces the result at the end of the game.
+
+import random
+
+# Constants for players
+HUMAN = 0
+MACHINE = 1
+
+# Messages
+ILLEGAL_MOVE = "Illegal move. Try again!\n"
+OCCUPIED_SPACE = "Space is occupied. Try again!\n"
+WELCOME = "\nWelcome to our Tic-Tac-Toe game!\nPlease begin playing."
+YOU_LOST = "Sorry! You lost!\n"
+YOU_TIED = "Looks like a tie. Better luck next time!\n"
+YOU_WON = "Congratulations! You won!\n"
+
+def getInitialBoard():
+    """Return a new empty 3x3 tic-tac-toe board."""
+    return [[" ", " ", " "],
+            [" ", " ", " "],
+            [" ", " ", " "]]
+
+class TicTacToeBoard:
+    def __init__(self):
+        """Initialize a Tic Tac Toe board and initial player."""
+        self.__board = getInitialBoard()
+        self.current_player = HUMAN
+
+    def __str__(self):
+        """Return a string representation of the board."""
+        return "\n-----\n".join(["|".join(row) for row in self.__board])
+
+    def getPlayer(self):
+        """Return the current player."""
+        return self.current_player
+
+    def isWin(self):
+        """Return True if the current board configuration represents a win."""
+        # Check rows
+        for row in self.__board:
+            if row[0] == row[1] == row[2] != " ":
+                return True
+        # Check columns
+        for col in range(3):
+            if self.__board[0][col] == self.__board[1][col] == self.__board[2][col] != " ":
+                return True
+        # Check diagonals
+        if self.__board[0][0] == self.__board[1][1] == self.__board[2][2] != " ":
+            return True
+        if self.__board[0][2] == self.__board[1][1] == self.__board[2][0] != " ":
+            return True
+        return False
+
+    def swapPlayers(self):
+        """Swap current player: HUMAN for MACHINE or vice versa."""
+        self.current_player = MACHINE if self.current_player == HUMAN else HUMAN
+
+    def humanMove(self):
+        """Accept and validate a move from the HUMAN. Keep trying until valid."""
+        print("\nYour turn:")
+        while True:
+            move = input("  Specify a move r c: ").strip().split()
+            if len(move) != 2 or not all(x.isdigit() for x in move):
+                print(ILLEGAL_MOVE)
+                print()
+                print(self)
+                print()
+                continue
+            r, c = map(int, move)
+            if r not in range(3) or c not in range(3):
+                print(ILLEGAL_MOVE)
+                print()
+                print(self)
+                print()
+                continue
+            if self.__board[r][c] != " ":
+                print(OCCUPIED_SPACE)
+                print()
+                print(self)
+                print()
+                continue
+            self.__board[r][c] = "X"
+            break
+
+    def machineMove(self):
+        """Generate a random legal move by MACHINE. Make and report the move."""
+        print()
+        print("Machine's turn:")
+        while True:
+            r = random.randint(0, 2)
+            c = random.randint(0, 2)
+            if self.__board[r][c] == " ":
+                print("  Machine chooses:", r, c)
+                self.__board[r][c] = "O"
+                return
+
+def driver():
+    """Play tic-tac-toe. HUMAN goes first, alternating with MACHINE."""
+    print(WELCOME)
+    ttt = TicTacToeBoard()
+    print()
+    print(ttt)
+
+    for move in range(9):
+        if ttt.getPlayer() == HUMAN:
+            ttt.humanMove()
+            print()
+            print(ttt)
+            if ttt.isWin():
+                print()
+                print(YOU_WON)
+                return
+        else:
+            ttt.machineMove()
+            print()
+            print(ttt)
+            if ttt.isWin():
+                print()
+                print(YOU_LOST)
+                return
+        ttt.swapPlayers()
+
+    print()
+    print(YOU_TIED)
+
+if __name__ == "__main__":
+    driver()
